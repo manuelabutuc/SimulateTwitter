@@ -1,3 +1,5 @@
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -19,6 +21,27 @@ public class AccessDBTest {
             e.printStackTrace();
         }
 
+
+    }
+
+
+    @Test
+    public void testAddTweet() throws Exception {
+
+    }
+
+    @Test
+    public void testReadTweets() throws Exception {
+
+    }
+
+    @Test
+    public void testIsUserInDB() throws Exception {
+
+    }
+
+    @Test
+    public void testReadMyFriends() throws Exception {
 
     }
 }
