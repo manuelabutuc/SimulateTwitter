@@ -8,12 +8,12 @@ import java.util.List;
 public class AccessDB {
 
 
-    public static void addTweet(String textToTweet) throws ClassNotFoundException, SQLException {
+    public static void addTweet(Integer iduser, String textToTweet) throws ClassNotFoundException, SQLException {
     // 1. load driver
     Class.forName("org.postgresql.Driver");
 
     // 2. define connection params to db
-        final String URL = "jdbc:postgresql://54.93.65.5:5432/4_ionel";
+        final String URL = "jdbc:postgresql://54.93.65.5/4_Manu";
         final String USERNAME = "fasttrackit_dev";
         final String PASSWORD = "fasttrackit_dev";
 
@@ -21,8 +21,9 @@ public class AccessDB {
     Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
     // 4. create a query statement
-    PreparedStatement pSt = conn.prepareStatement("INSERT INTO tweet (content, insertdate ) VALUES (?,now())");
-    pSt.setString(1, textToTweet);
+    PreparedStatement pSt = conn.prepareStatement("INSERT INTO tweet (iduser, content, insertdate ) VALUES (?,?,now())");
+        pSt.setInt(1, iduser);
+        pSt.setString(2, textToTweet);
 
     // 5. execute a prepared statement
     int rowsInserted = pSt.executeUpdate();
@@ -39,7 +40,7 @@ public class AccessDB {
         Class.forName("org.postgresql.Driver");
 
         // 2. define connection params to db
-        final String URL = "jdbc:postgresql://54.93.65.5:5432/4_ionel";
+        final String URL = "jdbc:postgresql://54.93.65.5/4_Manu";
         final String USERNAME = "fasttrackit_dev";
         final String PASSWORD = "fasttrackit_dev";
 
@@ -85,7 +86,7 @@ public class AccessDB {
         int userid =-1;
 
         // 2. define connection params to db
-        final String URL = "jdbc:postgresql://54.93.65.5:5432/4_ionel";
+        final String URL = "jdbc:postgresql://54.93.65.5/4_Manu";
         final String USERNAME = "fasttrackit_dev";
         final String PASSWORD = "fasttrackit_dev";
 
@@ -113,13 +114,12 @@ public class AccessDB {
     }
 
 
-
     public static List readMyFriends(long myID) throws ClassNotFoundException, SQLException {
         // 1. load driver
         Class.forName("org.postgresql.Driver");
 
         // 2. define connection params to db
-        final String URL = "jdbc:postgresql://54.93.65.5:5432/4_ionel";
+        final String URL = "jdbc:postgresql://54.93.65.5/4_Manu";
         final String USERNAME = "fasttrackit_dev";
         final String PASSWORD = "fasttrackit_dev";
 

@@ -36,9 +36,11 @@ public class Login extends HttpServlet {
 
         if (userid!=-1) {
             System.out.println("user gasit cu id:"+userid);
+
             HttpSession session = request.getSession(true);
             session.setAttribute("numeuser", user);
             session.setAttribute("iduser", userid);
+
             String success = "/index.html";
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(success);
             dispatcher.forward(request, response);
