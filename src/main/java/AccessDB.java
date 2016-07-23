@@ -9,30 +9,57 @@ public class AccessDB {
 
 
     public static void addTweet(Integer iduser, String textToTweet) throws ClassNotFoundException, SQLException {
-    // 1. load driver
-    Class.forName("org.postgresql.Driver");
+        // 1. load driver
+        Class.forName("org.postgresql.Driver");
 
-    // 2. define connection params to db
+        // 2. define connection params to db
         final String URL = "jdbc:postgresql://54.93.65.5/4_Manu";
         final String USERNAME = "fasttrackit_dev";
         final String PASSWORD = "fasttrackit_dev";
 
-    // 3. obtain a connection
-    Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        // 3. obtain a connection
+        Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
-    // 4. create a query statement
-    PreparedStatement pSt = conn.prepareStatement("INSERT INTO tweet (iduser, content, insertdate ) VALUES (?,?,now())");
+        // 4. create a query statement
+        PreparedStatement pSt = conn.prepareStatement("INSERT INTO tweet (iduser, content, insertdate ) VALUES (?,?,now())");
         pSt.setInt(1, iduser);
         pSt.setString(2, textToTweet);
 
-    // 5. execute a prepared statement
-    int rowsInserted = pSt.executeUpdate();
+        // 5. execute a prepared statement
+        int rowsInserted = pSt.executeUpdate();
 
-    // 6. close the objects
-    pSt.close();
-    conn.close();
-}
+        // 6. close the objects
+        pSt.close();
+        conn.close();
+    }
 
+    public static void addFriend(Integer iduser, String friend) throws ClassNotFoundException, SQLException {
+        // 1. load driver
+        Class.forName("org.postgresql.Driver");
+
+        // 2. define connection params to db
+        final String URL = "jdbc:postgresql://54.93.65.5/4_Manu";
+        final String USERNAME = "fasttrackit_dev";
+        final String PASSWORD = "fasttrackit_dev";
+
+        // 3. obtain a connection
+        Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+
+        // 4. create a query statement
+        PreparedStatement pSt = conn.prepareStatement("INSERT INTO relations (idfriends) SELECT id from users where numeuser='"+friend+"'");
+//
+//        pSt.setInt(1, iduser);
+//        pSt.setInt(2, Integer.parseInt(conn.prepareStatement("SELECT id FROM users where numeuser='"+friend+"'")));
+
+
+
+        // 5. execute a prepared statement
+        int rowsInserted = pSt.executeUpdate();
+
+        // 6. close the objects
+        pSt.close();
+        conn.close();
+    }
 
 
     public static List readTweets() throws ClassNotFoundException, SQLException {
@@ -155,6 +182,42 @@ public class AccessDB {
         conn.close();
 
         return listOfTweets;
+    }
+
+    public static void createAccount(String username, String password) throws ClassNotFoundException, SQLException {
+
+        try {// 1. load driver
+            Class.forName("org.postgresql.Driver");
+
+            // 2. define connection params to db
+            final String URL = "jdbc:postgresql://54.93.65.5/4_Manu";
+            final String USERNAME = "fasttrackit_dev";
+            final String PASSWORD = "fasttrackit_dev";
+
+            // 3. obtain a connection
+            Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+
+            // 4. create a query statement
+            PreparedStatement pSt = conn.prepareStatement("INSERT INTO users (numeuser, passwd) VALUES (?,?)");
+
+            pSt.setString(1, username);
+            pSt.setString(2, password);
+
+            // 5. execute a prepared statement
+            pSt.executeUpdate();
+
+
+
+            // 6. close the objects
+            pSt.close();
+            conn.close();
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
